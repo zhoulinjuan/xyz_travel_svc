@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xyz.service.dao.CompanyMapper">
+    <resultMap id="BaseResultMap" type="com.xyz.common.domain.CompanyInfo">
+        <result column="uen" jdbcType="VARCHAR" property="uen"/>
+        <result column="company_name" jdbcType="VARCHAR" property="companyName"/>
+        <result column="company_address" jdbcType="VARCHAR" property="companyAddress"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        uen, company_name, company_address
+    </sql>
+
+    <select id="searchCompany" parameterType="com.xyz.common.dto.CompanyInfoSearchParam"
+            resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM xyz_company
+        <where>
+            <trim prefixOverrides="AND">
+                <if test="uen != null">
+                    AND uen=#{uen}
+                </if>
+                <if test="companyName != null">
+                    AND company_name LIKE #{companyName}
+                </if>
+            </trim>
+        </where>
+        ORDER BY
+        <choose>
+            <when test="orderUEN != null or orderCompanyName != null">
+                <trim suffixOverrides=",">
+                    <if test="orderUEN != null">
+                        <choose>
+                            <when test="&quot;asc&quot;.equalsIgnoreCase(orderUEN)">
+                                uen asc,
+                            </when>
+                            <when test="&quot;desc&quot;.equalsIgnoreCase(orderUEN)">
+                                uen desc,
+                            </when>
+                        </choose>
+                    </if>
+                    <if test="orderCompanyName != null">
+                        <choose>
+                            <when test="&quot;asc&quot;.equalsIgnoreCase(orderCompanyName)">
+                                company_name asc,
+                            </when>
+                            <when test="&quot;desc&quot;.equalsIgnoreCase(orderCompanyName)">
+                                company_name desc,
+                            </when>
+                        </choose>
+                    </if>
+                </trim>
+            </when>
+            <otherwise>
+                uen asc
+            </otherwise>
+        </choose>
+    </select>
+</mapper>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xyz.service.dao.ApplicantMapper">
+    <resultMap id="BaseResultMap" type="com.xyz.common.domain.ApplicantInfo">
+        <result column="applicant_name" jdbcType="VARCHAR" property="applicantName"/>
+        <result column="applicant_contact" jdbcType="VARCHAR" property="applicantContact"/>
+        <result column="applicant_email" jdbcType="VARCHAR" property="applicantEmail"/>
+        <result column="uen" jdbcType="VARCHAR" property="uen"/>
+        <result column="role" jdbcType="VARCHAR" property="role"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        applicant_name, applicant_contact, applicant_email, uen, role
+    </sql>
+
+    <select id="searchApplicant" parameterType="com.xyz.common.dto.ApplicantInfoSearchParam"
+            resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM xyz_applicant
+        <where>
+            <trim prefixOverrides="AND">
+                <if test="uen != null">
+                    AND uen=#{uen}
+                </if>
+                <if test="applicantEmail != null">
+                    AND applicant_email=#{applicantEmail}
+                </if>
+                <if test="applicantName != null">
+                    AND applicant_name=#{applicantName}
+                </if>
+                <if test="applicantContact != null">
+                    AND applicant_contact=#{applicantContact}
+                </if>
+            </trim>
+        </where>
+        ORDER BY
+        <choose>
+            <when test="orderApplicantName != null or orderApplicantEmail != null">
+                <trim suffixOverrides=",">
+                    <if test="orderApplicantName != null">
+                        <choose>
+                            <when test="&quot;asc&quot;.equalsIgnoreCase(orderApplicantName)">
+                                applicant_name asc,
+                            </when>
+                            <when test="&quot;desc&quot;.equalsIgnoreCase(orderApplicantName)">
+                                applicant_name desc,
+                            </when>
+                        </choose>
+                    </if>
+                    <if test="orderApplicantEmail != null">
+                        <choose>
+                            <when test="&quot;asc&quot;.equalsIgnoreCase(orderApplicantEmail)">
+                                applicant_email asc,
+                            </when>
+                            <when test="&quot;desc&quot;.equalsIgnoreCase(orderApplicantEmail)">
+                                applicant_email desc,
+                            </when>
+                        </choose>
+                    </if>
+                    <if test="orderUEN != null">
+                        <choose>
+                            <when test="&quot;asc&quot;.equalsIgnoreCase(orderUEN)">
+                                uen asc,
+                            </when>
+                            <when test="&quot;desc&quot;.equalsIgnoreCase(orderUEN)">
+                                uen desc,
+                            </when>
+                        </choose>
+                    </if>
+                </trim>
+            </when>
+            <otherwise>
+                applicant_name asc
+            </otherwise>
+        </choose>
+    </select>
+</mapper>

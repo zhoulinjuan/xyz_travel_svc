@@ -1,0 +1,32 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/company_db?stringtype=unspecified&sendStringParametersAsUnicode=false
+    username: xcompany
+    password: xcompany
+    driver-class-name: org.postgresql.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+  messages:
+    basename: i18n/messages
+  resources:
+    add-mappings: false
+mybatis:
+  type-aliases-package: com.xyz.common.domain
+  mapper-locations: classpath*:mapper/*xml
+pagehelper:
+  helper-dialect: postgresql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+logging:
+  level:
+    org:
+      springframework:
+        web: DEBUG
+    com:
+      xyz:
+        service:
+          dao: DEBUG
+jwt:
+  secret: xyz

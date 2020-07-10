@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xyz.service.dao.ApplicationMapper">
+    <resultMap id="BaseResultMap" type="com.xyz.common.domain.ApplicationInfo">
+        <result column="application_id" jdbcType="VARCHAR" property="applicationId"/>
+        <result column="uen_no" jdbcType="VARCHAR" property="uen"/>
+        <result column="employee_name" jdbcType="VARCHAR" property="employeeName"/>
+        <result column="employee_id" jdbcType="VARCHAR" property="employeeId"/>
+        <result column="employee_passport" jdbcType="VARCHAR" property="employeePassport"/>
+        <result column="employee_origin_country" jdbcType="VARCHAR" property="employeeOriginCountry"/>
+        <result column="employee_destination_country" jdbcType="VARCHAR" property="employeeDestinationCountry"/>
+        <result column="employee_travel_from_date" jdbcType="VARCHAR" property="employeeTravelFromDate"/>
+        <result column="employee_travel_to_date" jdbcType="VARCHAR" property="employeeTravelToDate"/>
+        <result column="submit_datetime" jdbcType="TIMESTAMP" property="submitDatetime"/>
+        <result column="submit_by" jdbcType="VARCHAR" property="submitBy"/>
+        <result column="last_update_datetime" jdbcType="TIMESTAMP" property="lastUpdateDatetime"/>
+        <result column="last_update_by" jdbcType="VARCHAR" property="lastUpdateBy"/>
+        <result column="travel_cost" jdbcType="DECIMAL" property="travelCost"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+        <result column="travel_path" jdbcType="OTHER" property="travelPath"
+                typeHandler="com.xyz.service.config.JsonTypeHandler"/>
+        <result column="company_name" jdbcType="VARCHAR" property="companyName"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        application_id, uen_no, employee_name, employee_id, employee_passport, employee_origin_country,
+        employee_destination_country, employee_travel_from_date, employee_travel_to_date, submit_datetime, submit_by,
+        last_update_datetime, last_update_by, travel_cost, status, remarks, travel_path, company_name
+    </sql>
+
+    <insert id="insertSelective" parameterType="com.xyz.common.domain.ApplicationInfo">
+        insert into xyz_application
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="applicationId != null">
+                application_id,
+            </if>
+            <if test="uen != null">
+                uen_no,
+            </if>
+            <if test="employeeName != null">
+                employee_name,
+            </if>
+            <if test="employeeId != null">
+                employee_id,
+            </if>
+            <if test="employeePassport != null">
+                employee_passport,
+            </if>
+            <if test="employeeOriginCountry != null">
+                employee_origin_country,
+            </if>
+            <if test="employeeDestinationCountry != null">
+                employee_destination_country,
+            </if>
+            <if test="employeeTravelFromDate != null">
+                employee_travel_from_date,
+            </if>
+            <if test="employeeTravelToDate != null">
+                employee_travel_to_date,
+            </if>
+            <if test="submitDatetime != null">
+                submit_datetime,
+            </if>
+            <if test="submitBy != null">
+                submit_by,
+            </if>
+            <if test="lastUpdateDatetime != null">
+                last_update_datetime,
+            </if>
+            <if test="lastUpdateBy != null">
+                last_update_by,
+            </if>
+            <if test="travelCost != null">
+                travel_cost,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="remarks != null">
+                remarks,
+            </if>
+            <if test="travelPath != null">
+                travel_path,
+            </if>
+            <if test="companyName != null">
+                company_name,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="applicationId != null">
+                #{applicationId,jdbcType=VARCHAR},
+            </if>
+            <if test="uen != null">
+                #{uen,jdbcType=VARCHAR},
+            </if>
+            <if test="employeeName != null">
+                #{employeeName,jdbcType=VARCHAR},
+            </if>
+            <if test="employeeId != null">
+                #{employeeId,jdbcType=VARCHAR},
+            </if>
+            <if test="employeePassport != null">
+                #{employeePassport,jdbcType=VARCHAR},
+            </if>
+            <if test="employeeOriginCountry != null">
+                #{employeeOriginCountry,jdbcType=VARCHAR},
+            </if>
+            <if test="employeeDestinationCountry != null">
+                #{employeeDestinationCountry,jdbcType=VARCHAR},
+            </if>
+            <if test="employeeTravelFromDate != null">
+                #{employeeTravelFromDate,jdbcType=VARCHAR},
+            </if>
+            <if test="employeeTravelToDate != null">
+                #{employeeTravelToDate,jdbcType=VARCHAR},
+            </if>
+            <if test="submitDatetime != null">
+                #{submitDatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="submitBy != null">
+                #{submitBy,jdbcType=VARCHAR},
+            </if>
+            <if test="lastUpdateDatetime != null">
+                #{lastUpdateDatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastUpdateBy != null">
+                #{lastUpdateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="travelCost != null">
+                #{travelCost,jdbcType=DECIMAL},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="remarks != null">
+                #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="travelPath != null">
+                #{travelPath,jdbcType=OTHER , typeHandler=com.xyz.service.config.JsonTypeHandler},
+            </if>
+            <if test="companyName != null">
+                #{companyName,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateBySelective" parameterType="map">
+        update xyz_application
+        <set>
+            <if test="record.travelCost != null">
+                travel_cost = #{record.travelCost,jdbcType=DECIMAL},
+            </if>
+            <if test="record.status != null">
+                status = #{record.status,jdbcType=VARCHAR},
+            </if>
+            <if test="record.remarks != null">
+                remarks = #{record.remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="lastUpdateDatetime != null">
+                last_update_datetime = #{lastUpdateDatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastUpdateBy != null">
+                last_update_by = #{lastUpdateBy,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where application_id = #{applicationId,jdbcType=VARCHAR}
+    </update>
+
+    <select id="searchApplication" parameterType="com.xyz.common.dto.ApplicationInfoSearchParam"
+            resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM xyz_application
+        <where>
+            <trim prefixOverrides="AND">
+                <if test="applicationId != null">
+                    AND application_id=#{applicationId}
+                </if>
+                <if test="uen != null">
+                    AND uen_no=#{uen}
+                </if>
+                <if test="employeeName != null">
+                    AND employee_name=#{employeeName}
+                </if>
+                <if test="employeeId != null">
+                    AND employee_id=#{employeeId}
+                </if>
+                <if test="employeePassport != null">
+                    AND employee_passport=#{employeePassport}
+                </if>
+            </trim>
+        </where>
+        ORDER BY
+        <choose>
+            <when test="orderUEN != null or orderEmployeeName != null">
+                <trim suffixOverrides=",">
+                    <if test="orderEmployeeName != null">
+                        <choose>
+                            <when test="&quot;asc&quot;.equalsIgnoreCase(orderEmployeeName)">
+                                employee_name asc,
+                            </when>
+                            <when test="&quot;desc&quot;.equalsIgnoreCase(orderEmployeeName)">
+                                employee_name desc,
+                            </when>
+                        </choose>
+                    </if>
+                    <if test="orderUEN != null">
+                        <choose>
+                            <when test="&quot;asc&quot;.equalsIgnoreCase(orderUEN)">
+                                uen_no asc,
+                            </when>
+                            <when test="&quot;desc&quot;.equalsIgnoreCase(orderUEN)">
+                                uen_no desc,
+                            </when>
+                        </choose>
+                    </if>
+                </trim>
+            </when>
+            <otherwise>
+                employee_name asc
+            </otherwise>
+        </choose>
+    </select>
+</mapper>
