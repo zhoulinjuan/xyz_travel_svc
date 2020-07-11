@@ -4,6 +4,8 @@ import com.xyz.common.constants.ResponseCode;
 import com.xyz.common.utils.ResultVoUtil;
 import com.xyz.common.vo.BaseErrorResult;
 import com.xyz.common.vo.RestException;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +19,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.NoHandlerFoundException;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Slf4j
 @ControllerAdvice
