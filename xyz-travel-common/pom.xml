@@ -16,7 +16,7 @@
     <properties>
         <java.version>1.8</java.version>
         <jacoco.version>0.8.4</jacoco.version>
-        <commons-text.version>1.8</commons-text.version>
+        <commons-text.version>1.10.0</commons-text.version>
     </properties>
 
     <dependencies>
